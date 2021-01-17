@@ -1,7 +1,7 @@
 {
   "name": "v-fetch",
   "version": "1.0.0",
-  "description": "A Vue directive to handle async requests",
+  "description": "A Vue directive to handle AJAX requests",
   "main": "index.js",
   "scripts": {
     "test": "jest"
