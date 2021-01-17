@@ -5,7 +5,7 @@ const helpers = {
         }
 
         if (el.nodeName === 'FORM') {
-            return 'change';
+            return 'submit';
         }
 
         return 'click';
@@ -14,7 +14,6 @@ const helpers = {
         if ('url' in binding.value) {
             return binding.value.url;
         }
-
         if (el.nodeName === 'FORM' && el.getAttribute('action')) {
             return el.getAttribute('action');
         }   
@@ -31,6 +30,9 @@ const helpers = {
         if (el.getAttribute('method')) {
             return el.getAttribute('method');
         }
+    },
+    getModel(binding) {
+
     }
 };
 
@@ -38,59 +40,26 @@ const fetchDirective = function (options = {}) {
     return {
         bind(el, binding, vnode) {
             let model = binding.value.model;
-            let self = this;
             let url = helpers.getUrl(el, binding);
             let method = helpers.getMethod(el, binding);
             let eventType = helpers.getEventType(el, binding);
 
+            console.log(url, method, eventType)
+            handle()
 
-            // if (el.nodeName === 'A') {
-            //     bindLink();
-            // } else if (el.nodeName === 'FORM') {
-            //     bindForm();
-            // }
-
-
-            // function bindForm() {
-            //     el.addEventListener('submit', function (e) {
-            //         let url = el.getAttribute('action');
-            //         let method = el.getAttribute('method');
-            //         e.preventDefault();
-
-            //         fetch(url, {
-            //             'method': getMethod()
-            //         })
-            //             .then(response => response.json())
-            //             .then(function (data) {
-      
-            //                 vnode.context[model] = data;
-            //             }).catch((error) => {
-            //                 console.log(error)
-            //             });
-
-        
-            //     });
-            // }
-
-            // function bindLink() {
-            //     el.addEventListener('click', function () {
-            //         let url = el.getAttribute('href');
-            //         fetch(url, {
-            //             'method': getMethod()
-            //         })
-            //             .then(response => response.json())
-            //             .then(function (data) {
-            //                 vnode.context[model] = data;
-            //             }).catch((error) => {
-            //                 console.log(error)
-            //             });
-            //     });
-            // }
-
-
-
-
-
+            function handle() {
+                el.addEventListener(eventType, function (e) {
+                    fetch(url, {
+                        method
+                    })
+                        .then(response => response.json())
+                        .then(function (data) {
+                            vnode.context[model] = data;
+                        }).catch((error) => {
+                            console.log(error)
+                        });
+                });
+            }
         }
     }
 }
