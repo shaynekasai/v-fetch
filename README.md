@@ -17,38 +17,97 @@
 
 The intention of the v-fetch directive is to add AJAX functionality to your Vue 2 application so that you don't have to write all of the bootstrap code to call a simple API request to update a model or submit data to an end-point.
 
+<hr>
+
+## Installation
+
+```
+npm install v-fetch --save
+```
+
+<hr>
+
 ## Usage
+
+First, import and use v-fetch:
+
+```javascript
+import VueFetch from 'v-fetch'
+
+Vue.use(VueFetch);
+```
 
 Simple GET example:
 
-```
+```html
 <a href="/api/endpoint" v-fetch v-on:click.prevent>click</a>
 ```
 
-Simple GET example that updates a model:
+Simple GET example that updates a model from the AJAX return call:
 
-```
+```html
 <a href="/api/endpoint" v-fetch="{model: 'message'}" v-on:click.prevent>click</a>
+```
+
+Simple POST example that updates a model from the AJAX return call:
+
+```html
+<a href="/api/endpoint" v-fetch:post="{model: 'message'}" v-on:click.prevent>click</a>
 ```
 
 Form example:
 
-```
+```html
 <form method="post" action="/api/endpoint" v-fetch>
   <input type="hidden" name="foo" value="bar">
 </form>
 ```
 
-## Advanced Usage
+<hr>
 
-v-fetch tries its best to figure out what method and event type to use based on how your elements are setup, however, you can also pass options into it.
+## API
+
+### Methods:
+  
+```v-fetch:get|post|put|patch|delete```
+
+### Options:
+
+- `model: '<string>'` - the Vue model property to update 
+- `eventType: '<string>'` - the event type to use
+- `extraParams: <object>` - these get merged into `fetch`'s extra options.
+
+Example: 
+```html
+v-fetch="{
+  model: 'yourDataModel',
+  eventType: 'click|submit|change',
+  extraParams: {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer'
+  }
+}";
+```
+
+### Events
+
+```v-fetch:before-complete```
+
+```v-fetch:complete```
+
+<hr>
 
 ## Roadmap
 - Add more tests and setup automated testing (high)
 - Stabilize directive API (high)
 - Documentation (high)
-- Add event emitters (medium)
-- Add support for other HTTP clients (low)
+- :white_check_mark: Add event emitters (medium)
+- Add support for other HTTP clients like axios (low)
+- File upload (low)
+  
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
