@@ -93,10 +93,13 @@ v-fetch="{
 ```v-fetch:complete```
 
 ## Roadmap
+
+### 1.0.0 (current)
 - Add more tests and setup automated testing (high)
 - Stabilize directive API (high)
 - Documentation (high)
-- Add event emitters (medium)
+
+### 1.1.0
 - Add support for other HTTP clients like axios (low)
 - File upload (low)
 
