@@ -32,19 +32,22 @@ const helpers = {
         }
     },
     getModel(binding) {
+        if ('model' in binding.value) {
+            return binding.value.model;
+        }
 
+        return;
     }
 };
 
 const fetchDirective = function (options = {}) {
     return {
         bind(el, binding, vnode) {
-            let model = binding.value.model;
+            let model = helpers.getModel(binding);
             let url = helpers.getUrl(el, binding);
             let method = helpers.getMethod(el, binding);
             let eventType = helpers.getEventType(el, binding);
 
-            console.log(url, method, eventType)
             handle()
 
             function handle() {
@@ -54,9 +57,11 @@ const fetchDirective = function (options = {}) {
                     })
                         .then(response => response.json())
                         .then(function (data) {
-                            vnode.context[model] = data;
+                            if (model) {
+                                vnode.context[model] = data;
+                            }
                         }).catch((error) => {
-                            console.log(error)
+                            throw error;
                         });
                 });
             }
