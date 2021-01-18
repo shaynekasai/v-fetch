@@ -88,7 +88,7 @@ v-fetch="{
 
 ### Events
 
-```v-fetch:before-complete```
+```v-fetch:start```
 
 ```v-fetch:complete```
 
@@ -96,7 +96,7 @@ v-fetch="{
 - Add more tests and setup automated testing (high)
 - Stabilize directive API (high)
 - Documentation (high)
-- :white_check_mark: Add event emitters (medium)
+- Add event emitters (medium)
 - Add support for other HTTP clients like axios (low)
 - File upload (low)
 

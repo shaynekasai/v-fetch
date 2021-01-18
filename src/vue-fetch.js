@@ -43,14 +43,23 @@ const helpers = {
 const fetchDirective = function (options = {}) {
     return {
         bind(el, binding, vnode) {
-            let model = helpers.getModel(binding);
-            let url = helpers.getUrl(el, binding);
-            let method = helpers.getMethod(el, binding);
-            let eventType = helpers.getEventType(el, binding);
+            let model = helpers.getModel(binding),
+                url = helpers.getUrl(el, binding),
+                method = helpers.getMethod(el, binding),
+                eventType = helpers.getEventType(el, binding);
 
             handle()
 
             function handle() {
+                let opts = {
+                    model,
+                    url,
+                    method,
+                    eventType
+                };
+
+                vnode.context.$emit('v-fetch:start', opts)
+
                 el.addEventListener(eventType, function (e) {
                     fetch(url, {
                         method
@@ -60,6 +69,7 @@ const fetchDirective = function (options = {}) {
                             if (model) {
                                 vnode.context[model] = data;
                             }
+                            vnode.context.$emit('v-fetch:complete', opts)
                         }).catch((error) => {
                             throw error;
                         });
