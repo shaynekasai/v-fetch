@@ -17,6 +17,9 @@ const helpers = {
         if (el.nodeName === 'FORM' && el.getAttribute('action')) {
             return el.getAttribute('action');
         }   
+        if (el.nodeName === 'A' && el.getAttribute('href')) {
+            return el.getAttribute('href');
+        }  
     },
     getMethod(el, binding) {
         if (~['get', 'post', 'put', 'patch', 'delete'].indexOf(binding.arg)) {
