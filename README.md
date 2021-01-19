@@ -8,7 +8,7 @@
   <h1 align="center">
     v-fetch (technology preview)
     <br>
-    <a href="https://travis-ci.org/shaynekasai/v-fetch" target="_blank"><img src="https://travis-ci.org/shaynekasai/v-fetch.svg?branch=master"></a>
+    <a href="https://travis-ci.org/shaynekasai/v-fetch" target="_blank"><img src="https://travis-ci.org/shaynekasai/v-fetch.svg?branch=main"></a>
   </h1>
 
   <p align="center">
