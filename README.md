@@ -22,7 +22,7 @@
 
 v-fetch is a directive that adds AJAX functionality to your Vue 2 application so that you don't have to write all of the bootstrap code to call a simple API request to update a model or submit data to an end-point.
 
-**Note**: This is a work in progress, so the code and API is a work in progress and likely to change quickly.
+**Note**: This is a work in progress, so the code and API is likely to change quickly.
 
 
 ## Installation
