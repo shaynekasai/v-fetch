@@ -1,6 +1,6 @@
 {
   "name": "@shaynekasai/v-fetch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Vue directive to handle AJAX requests",
   "main": "dist/v-fetch.js",
   "scripts": {

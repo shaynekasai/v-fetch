@@ -6,6 +6,7 @@ import VueFetch from '../src/v-fetch.js'
 const BaseComponent = {
     data() {
         return {
+            handlers: [],
             message: ''
         }
     },
@@ -22,6 +23,21 @@ global.fetch = jest.fn(() =>
 );
 
 describe('usage', () => {
+
+    it('tests get basic', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch v-on:click.prevent></a></div>';
+
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
+
+        wrapper.find('a').trigger('click')
+        await flushPromises()
+
+        expect(wrapper.emitted()['v-fetch:complete']).toBeTruthy()
+    })
+
     it('tests get', async () => {
         const CustomComponent = Object.create(BaseComponent);
         CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\'}"  v-on:click.prevent></a></div>';
@@ -53,14 +69,17 @@ describe('usage', () => {
     it('tests handlers', async () => {
         const CustomComponent = Object.create(BaseComponent);
         CustomComponent.methods = {
-            onStart() {
-
+            onStartHandler() {
+                this.handlers.push('start')
             },
-            onComplete() {
-
+            onCompleteHandler() {
+                this.handlers.push('complete')
+            },
+            onErrorHandler() {
+                this.handlers.push('error')
             }
         };
-        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\', start:\'onStart\'}"  v-on:click.prevent></a></div>';
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\', onStart:\'onStartHandler\', onComplete:\'onCompleteHandler\'}"  v-on:click.prevent></a></div>';
 
         const wrapper = mount(CustomComponent, {
             localVue,
@@ -69,6 +88,6 @@ describe('usage', () => {
         wrapper.find('a').trigger('click')
         await flushPromises()
 
-        expect(wrapper.vm.message).toBe('fetch test')
+        expect(wrapper.vm.$data.handlers.sort()).toEqual(['complete', 'start'])
     })
 })

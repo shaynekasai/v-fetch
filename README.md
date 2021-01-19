@@ -23,6 +23,12 @@ v-fetch is a directive that adds AJAX functionality to your Vue 2 application so
 npm install @shaynekasai/v-fetch --save
 ```
 
+or you can use unpkg
+
+```html
+<script src="https://unpkg.com/@shaynekasai/v-fetch@1.0.2/dist/v-fetch.js"></script>
+```
+
 ## Usage
 
 First, import and use v-fetch:
@@ -70,6 +76,9 @@ Form example:
 - `model: '<string>'` - the Vue model property to update 
 - `eventType: '<string>'` - the event type to use
 - `extraParams: <object>` - these get merged into `fetch`'s extra options.
+- `onStart: '<string>'` - calls your method just before the ajax call
+- `onComplete: '<string>'` - calls your method after ajax call is completed
+- `onError: '<strong>` - calls your method if there's an error
 
 Example: 
 ```html
@@ -99,12 +108,12 @@ v-fetch:get="{
 - Stabilize directive API (high)
 - Documentation (high)
 - Exception handling (medium)
-- Event handlers (medium)
 
 ### 1.1.0
 - Add support for other HTTP clients like axios (low)
 - File upload (low)
 - Validation handlers (low)
+- JavaScript framework independent (medium)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
