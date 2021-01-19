@@ -15,12 +15,12 @@
 
 ## Summary
 
-The intention of the v-fetch directive is to add AJAX functionality to your Vue 2 application so that you don't have to write all of the bootstrap code to call a simple API request to update a model or submit data to an end-point.
+v-fetch is a directive that adds AJAX functionality to your Vue 2 application so that you don't have to write all of the bootstrap code to call a simple API request to update a model or submit data to an end-point.
 
 ## Installation
 
 ```
-npm install v-fetch --save
+npm install @shaynekasai/v-fetch --save
 ```
 
 ## Usage
@@ -73,9 +73,9 @@ Form example:
 
 Example: 
 ```html
-v-fetch="{
+v-fetch:get="{
   model: 'yourDataModel',
-  eventType: 'click|submit|change',
+  eventType: 'click',
   extraParams: {
     headers: {
       'Content-Type': 'application/json',
@@ -98,10 +98,13 @@ v-fetch="{
 - Add more tests and setup automated testing (high)
 - Stabilize directive API (high)
 - Documentation (high)
+- Exception handling (medium)
+- Event handlers (medium)
 
 ### 1.1.0
 - Add support for other HTTP clients like axios (low)
 - File upload (low)
+- Validation handlers (low)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

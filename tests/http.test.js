@@ -1,7 +1,7 @@
 import { it } from '@jest/globals';
 import { mount, createLocalVue } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
-import VueFetch from '../src/vue-fetch.js'
+import VueFetch from '../src/v-fetch.js'
 
 const BaseComponent = {
     data() {
@@ -45,6 +45,28 @@ describe('usage', () => {
         });
         
         wrapper.find('form').trigger('submit')
+        await flushPromises()
+
+        expect(wrapper.vm.message).toBe('fetch test')
+    })
+
+    it('tests handlers', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.methods = {
+            onStart() {
+
+            },
+            onComplete() {
+
+            }
+        };
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\', start:\'onStart\'}"  v-on:click.prevent></a></div>';
+
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
+
+        wrapper.find('a').trigger('click')
         await flushPromises()
 
         expect(wrapper.vm.message).toBe('fetch test')
