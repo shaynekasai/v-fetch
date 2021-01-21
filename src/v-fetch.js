@@ -68,6 +68,16 @@ const helpers = {
             formData.append(key, sendModelData[key]);
         }
         return formData;
+    },
+
+    formDataToObject(formData) {
+        let obj = {};
+       
+        for (var key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        
+        return obj;
     }
 };
 
@@ -83,6 +93,8 @@ const fetchDirective = function (options = {}) {
 
             if (sendModel) {
                 helpers.getBody(vnode.context[sendModel], binding)
+            } else if (el.nodeName === 'FORM') {
+                helpers.getBody(helpers.formDataToObject(new FormData(el)), binding)
             }
 
             handle()
