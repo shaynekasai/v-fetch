@@ -92,9 +92,9 @@ const fetchDirective = function (options = {}) {
                 body = '';
 
             if (sendModel) {
-                helpers.getBody(vnode.context[sendModel], binding)
+                body = helpers.getBody(vnode.context[sendModel], binding)
             } else if (el.nodeName === 'FORM') {
-                helpers.getBody(helpers.formDataToObject(new FormData(el)), binding)
+                body = helpers.getBody(helpers.formDataToObject(new FormData(el)), binding)
             }
 
             handle()
