@@ -40,7 +40,7 @@ describe('usage', () => {
 
     it('tests get', async () => {
         const CustomComponent = Object.create(BaseComponent);
-        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\'}"  v-on:click.prevent></a></div>';
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\'}"  v-on:click.prevent></a></div>';
 
         const wrapper = mount(CustomComponent, {
             localVue,
@@ -54,7 +54,7 @@ describe('usage', () => {
 
     it('tests post', async () => {
         const CustomComponent = Object.create(BaseComponent);
-        CustomComponent.template = '<div><form method="post" action="http://localhost/url" v-fetch="{model:\'message\'}" @submit.prevent><input type="hidden" name="message" value="post test"/></form></a></div>'
+        CustomComponent.template = '<div><form method="post" action="http://localhost/url" v-fetch="{updateModel:\'message\'}" @submit.prevent><input type="hidden" name="message" value="post test"/></form></a></div>'
         
         const wrapper = mount(CustomComponent, {
             localVue
@@ -79,7 +79,7 @@ describe('usage', () => {
                 this.handlers.push('error')
             }
         };
-        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{model:\'message\', onStart:\'onStartHandler\', onComplete:\'onCompleteHandler\'}"  v-on:click.prevent></a></div>';
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\', onStart:\'onStartHandler\', onComplete:\'onCompleteHandler\'}"  v-on:click.prevent></a></div>';
 
         const wrapper = mount(CustomComponent, {
             localVue,

@@ -56,13 +56,13 @@ Simple GET example:
 Simple GET example that updates a model from the AJAX return call:
 
 ```html
-<a href="/api/endpoint" v-fetch="{model: 'message'}" v-on:click.prevent>click</a>
+<a href="/api/endpoint" v-fetch="{updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
 
 Simple POST example that updates a model from the AJAX return call:
 
 ```html
-<a href="/api/endpoint" v-fetch:post="{model: 'message'}" v-on:click.prevent>click</a>
+<a href="/api/endpoint" v-fetch:post="{sendModel: 'formModel', updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
 
 Form example:
@@ -91,7 +91,7 @@ Form example:
 Example: 
 ```html
 v-fetch:get="{
-  model: 'yourDataModel',
+  updateModel: 'yourDataModel',
   eventType: 'click',
   extraParams: {
     headers: {
@@ -102,6 +102,13 @@ v-fetch:get="{
   }
 }";
 ```
+### Callbacks
+
+```onStart```
+
+```onComplete```
+
+```onError```
 
 ### Events
 
@@ -109,19 +116,15 @@ v-fetch:get="{
 
 ```v-fetch:complete```
 
-## Roadmap
+### Release notes
+#### 1.0.0
+- Initial release, technology implmenetation and preview
 
-### 1.0.0 (current)
-- Add more tests and setup automated testing (high)
-- Stabilize directive API (high)
-- Documentation (high)
-- Exception handling (medium)
-
-### 1.1.0
-- Add support for other HTTP clients like axios (low)
-- File upload (low)
-- Validation handlers (low)
-- JavaScript framework independent (medium)
+#### 1.0.4
+- API change: use `sendModel` to send a specific model to the end-point
+- API change: renamed `model` to `updateModel`
+- API change: added a new `sendAs` parameter. Set to `json` to send JSON payload. `form` to send traditional form data.
+- Tests: starting to add more tests for helpers  
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

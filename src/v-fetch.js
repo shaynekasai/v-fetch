@@ -34,31 +34,67 @@ const helpers = {
             return el.getAttribute('method');
         }
     },
-    getModel(binding) {
-        if (binding.value && 'model' in binding.value) {
-            return binding.value.model;
+    getUpdateModel(binding) {
+        if (binding.value && 'updateModel' in binding.value) {
+            return binding.value.updateModel;
         }
 
         return;
+    },
+    getSendModel(binding) {
+        if (binding.value && 'sendModel' in binding.value) {
+            return binding.value.sendModel;
+        }
+
+        return;
+    },
+    getBody(sendModelData, binding) {
+        if (!sendModelData) {
+            return null;
+        }
+
+        if (!binding.value || !binding.value.sendAs) {
+            return null;
+        }
+
+        // sends as json content, would need to be encoded on the other end
+        if (binding.value.sendAs == 'json') {
+            return JSON.stringify(sendModelData);
+        }
+
+        // default: form style
+        let formData = new FormData();
+        for ( var key in sendModelData ) {
+            formData.append(key, sendModelData[key]);
+        }
+        return formData;
     }
 };
 
 const fetchDirective = function (options = {}) {
     return {
         bind(el, binding, vnode) {
-            let model = helpers.getModel(binding),
+            let updateModel = helpers.getUpdateModel(binding),
+                sendModel = helpers.getSendModel(binding),
                 url = helpers.getUrl(el, binding),
                 method = helpers.getHttpMethod(el, binding),
-                eventType = helpers.getEventType(el, binding);
+                eventType = helpers.getEventType(el, binding),
+                body = '';
+
+            if (sendModel) {
+                helpers.getBody(vnode.context[sendModel], binding)
+            }
 
             handle()
 
             function handle() {
                 let opts = {
-                    model,
+                    updateModel,
+                    sendModel,
                     url,
                     method,
-                    eventType
+                    eventType,
+                    body
                 };
 
                 if (binding.value && 'onStart' in binding.value) {
@@ -69,12 +105,13 @@ const fetchDirective = function (options = {}) {
 
                 el.addEventListener(eventType, function (e) {
                     fetch(url, {
-                        method
+                        method,
+                        body
                     })
                         .then(response => response.json())
                         .then(function (data) {
-                            if (model) {
-                                vnode.context[model] = data;
+                            if (updateModel) {
+                                vnode.context[updateModel] = data;
                             }
 
                             if (binding.value && 'onComplete' in binding.value) {
