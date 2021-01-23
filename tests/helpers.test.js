@@ -96,4 +96,9 @@ describe('helpers', () => {
         });
         expect(result).toBe('/baz');
     })
+
+    it('tests json return value', () => {
+        // 
+        // helpers.getJsonValue(binding, key, data)
+    })
 });

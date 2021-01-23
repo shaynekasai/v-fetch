@@ -33,6 +33,8 @@ const helpers = {
         if (el.getAttribute('method')) {
             return el.getAttribute('method');
         }
+
+        return 'get';
     },
     getUpdateModel(binding) {
         if (binding.value && 'updateModel' in binding.value) {
@@ -78,6 +80,26 @@ const helpers = {
         }
         
         return obj;
+    },
+
+    getFetchOpts(method, body) {
+        if (~['get', 'head'].indexOf(method)) {
+            return { method };
+        }
+
+        return { method, body }
+    },
+
+    getJsonValue(binding, key, data) {
+        if (binding.value && 'returnField' in binding.value) {
+            return binding.value.returnField.split('.').reduce((o,i)=>o[i], data);
+        }
+
+        if (key in data) {
+            return data[key];
+        }
+
+        return null;
     }
 };
 
@@ -117,14 +139,11 @@ const fetchDirective = function (options = {}) {
                 vnode.context.$emit('v-fetch:start', opts)
 
                 el.addEventListener(eventType, function (e) {
-                    fetch(url, {
-                        method,
-                        body
-                    })
+                    fetch(url, helper.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
                             if (updateModel) {
-                                vnode.context[updateModel] = data;
+                                vnode.context[updateModel] = helpers.getJsonValue(updateModel, data);
                             }
 
                             if (binding.value && 'onComplete' in binding.value) {

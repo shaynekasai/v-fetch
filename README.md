@@ -12,7 +12,7 @@
   </h1>
 
   <p align="center">
-    v-fetch is a Vue 2 directive to add AJAX requests to your Vue application.
+    v-fetch is a Vue directive to add AJAX to your app without the boilerplate
   </p> 
 </p>
 
@@ -29,12 +29,6 @@ v-fetch is a directive that adds AJAX functionality to your Vue 2 application so
 
 ```
 npm install @shaynekasai/v-fetch --save
-```
-
-or you can use unpkg
-
-```html
-<script src="https://unpkg.com/@shaynekasai/v-fetch@1.0.2/dist/v-fetch.js"></script>
 ```
 
 ## Usage
@@ -58,6 +52,8 @@ Simple GET example that updates a model from the AJAX return call:
 ```html
 <a href="/api/endpoint" v-fetch="{updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
+
+> **Important!** when using *updateModel*, make sure your end-point returns data using the same name. If you want to access a nested value in the json that is returned from your end-point, see the *returnField* option below
 
 Simple POST example that updates a model from the AJAX return call:
 
@@ -83,25 +79,21 @@ Form example:
 
 - `updateModel: '<string>'` - the Vue model property to update 
 - `sendModel: '<string>'` - the Vue model to send over as a form, json, or query args
+- `returnField: '<string>'` - gets the value from your json end-point using dot notation (arrays/more complex notation not supported yet)
 - `eventType: '<string>'` - the event type to use
 - `extraParams: <object>` - these get merged into `fetch`'s extra options.
 - `onStart: '<string>'` - calls your method just before the ajax call
 - `onComplete: '<string>'` - calls your method after ajax call is completed
 - `onError: '<strong>` - calls your method if there's an error
 
-Example: 
-```html
-v-fetch:get="{
-  updateModel: 'yourDataModel',
-  eventType: 'click',
-  extraParams: {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
-}";
+### Examples
+
+Here are some codepen examples where you can see how this all works:
+
+- Simple examples
+- Form examples
+- More complex example
+
 ```
 ### Callbacks
 
