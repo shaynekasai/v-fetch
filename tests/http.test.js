@@ -52,6 +52,20 @@ describe('usage', () => {
         expect(wrapper.vm.message).toBe('fetch test')
     })
 
+    it('tests post simple', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.template = '<div><form method="post" action="http://localhost/url" v-fetch @submit.prevent><input type="hidden" name="message" value="post test"/></form></a></div>'
+        
+        const wrapper = mount(CustomComponent, {
+            localVue
+        });
+        
+        wrapper.find('form').trigger('submit')
+        await flushPromises()
+
+        expect(wrapper.emitted()['v-fetch:complete']).toBeTruthy()
+    })
+
     it('tests post', async () => {
         const CustomComponent = Object.create(BaseComponent);
         CustomComponent.template = '<div><form method="post" action="http://localhost/url" v-fetch="{updateModel:\'message\'}" @submit.prevent><input type="hidden" name="message" value="post test"/></form></a></div>'
