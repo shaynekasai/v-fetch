@@ -81,7 +81,8 @@ Form example:
 
 ### Options:
 
-- `model: '<string>'` - the Vue model property to update 
+- `updateModel: '<string>'` - the Vue model property to update 
+- `sendModel: '<string>'` - the Vue model to send over as a form, json, or query args
 - `eventType: '<string>'` - the event type to use
 - `extraParams: <object>` - these get merged into `fetch`'s extra options.
 - `onStart: '<string>'` - calls your method just before the ajax call

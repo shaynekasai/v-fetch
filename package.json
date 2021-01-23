@@ -2,6 +2,16 @@
   "name": "@shaynekasai/v-fetch",
   "version": "1.0.4",
   "description": "A Vue directive to handle AJAX requests",
+  "keywords": [
+    "ajax",
+    "async",
+    "directive",
+    "vue",
+    "axios",
+    "http",
+    "xhr",
+    "XMLHttpRequest"
+  ],
   "main": "dist/v-fetch.js",
   "scripts": {
     "test": "jest",

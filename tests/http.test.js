@@ -24,33 +24,33 @@ global.fetch = jest.fn(() =>
 
 describe('usage', () => {
 
-    // it('tests get basic', async () => {
-    //     const CustomComponent = Object.create(BaseComponent);
-    //     CustomComponent.template = '<div><a href="http://localhost/url" v-fetch v-on:click.prevent></a></div>';
+    it('tests get basic', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch v-on:click.prevent></a></div>';
 
-    //     const wrapper = mount(CustomComponent, {
-    //         localVue,
-    //     });
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
 
-    //     wrapper.find('a').trigger('click')
-    //     await flushPromises()
+        wrapper.find('a').trigger('click')
+        await flushPromises()
 
-    //     expect(wrapper.emitted()['v-fetch:complete']).toBeTruthy()
-    // })
+        expect(wrapper.emitted()['v-fetch:complete']).toBeTruthy()
+    })
 
-    // it('tests get', async () => {
-    //     const CustomComponent = Object.create(BaseComponent);
-    //     CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\'}"  v-on:click.prevent></a></div>';
+    it('tests get', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\'}"  v-on:click.prevent></a></div>';
 
-    //     const wrapper = mount(CustomComponent, {
-    //         localVue,
-    //     });
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
 
-    //     wrapper.find('a').trigger('click')
-    //     await flushPromises()
+        wrapper.find('a').trigger('click')
+        await flushPromises()
 
-    //     expect(wrapper.vm.message).toBe('fetch test')
-    // })
+        expect(wrapper.vm.message).toBe('fetch test')
+    })
 
     it('tests post', async () => {
         const CustomComponent = Object.create(BaseComponent);
@@ -66,28 +66,28 @@ describe('usage', () => {
         expect(wrapper.vm.message).toBe('fetch test')
     })
 
-    // it('tests handlers', async () => {
-    //     const CustomComponent = Object.create(BaseComponent);
-    //     CustomComponent.methods = {
-    //         onStartHandler() {
-    //             this.handlers.push('start')
-    //         },
-    //         onCompleteHandler() {
-    //             this.handlers.push('complete')
-    //         },
-    //         onErrorHandler() {
-    //             this.handlers.push('error')
-    //         }
-    //     };
-    //     CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\', onStart:\'onStartHandler\', onComplete:\'onCompleteHandler\'}"  v-on:click.prevent></a></div>';
+    it('tests handlers', async () => {
+        const CustomComponent = Object.create(BaseComponent);
+        CustomComponent.methods = {
+            onStartHandler() {
+                this.handlers.push('start')
+            },
+            onCompleteHandler() {
+                this.handlers.push('complete')
+            },
+            onErrorHandler() {
+                this.handlers.push('error')
+            }
+        };
+        CustomComponent.template = '<div><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\', onStart:\'onStartHandler\', onComplete:\'onCompleteHandler\'}"  v-on:click.prevent></a></div>';
 
-    //     const wrapper = mount(CustomComponent, {
-    //         localVue,
-    //     });
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
 
-    //     wrapper.find('a').trigger('click')
-    //     await flushPromises()
+        wrapper.find('a').trigger('click')
+        await flushPromises()
 
-    //     expect(wrapper.vm.$data.handlers.sort()).toEqual(['complete', 'start'])
-    // })
+        expect(wrapper.vm.$data.handlers.sort()).toEqual(['complete', 'start'])
+    })
 })

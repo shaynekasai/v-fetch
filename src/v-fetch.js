@@ -91,6 +91,7 @@ const fetchDirective = function (options = {}) {
                 eventType = helpers.getEventType(el, binding),
                 body = '';
 
+            // TODO: extract
             if (sendModel) {
                 body = helpers.getBody(vnode.context[sendModel], binding)
             } else if (el.nodeName === 'FORM') {
