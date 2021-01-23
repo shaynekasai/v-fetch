@@ -139,7 +139,7 @@ const fetchDirective = function (options = {}) {
                 vnode.context.$emit('v-fetch:start', opts)
 
                 el.addEventListener(eventType, function (e) {
-                    fetch(url, helper.getFetchOpts(method, body))
+                    fetch(url, helpers.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
                             if (updateModel) {

@@ -6,7 +6,7 @@
 <br />
 <p align="center">
   <h1 align="center">
-    v-fetch (technology preview)
+    v-fetch
     <br>
     <a href="https://travis-ci.org/shaynekasai/v-fetch" target="_blank"><img src="https://travis-ci.org/shaynekasai/v-fetch.svg?branch=main"></a>
   </h1>

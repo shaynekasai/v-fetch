@@ -18,7 +18,7 @@ localVue.use(VueFetch);
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
-        json: () => Promise.resolve('fetch test'),
+        json: () => Promise.resolve({message: 'fetch test'}),
     })
 );
 
