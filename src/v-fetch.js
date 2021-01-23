@@ -90,9 +90,9 @@ const helpers = {
         return { method, body }
     },
 
-    getJsonValue(binding, key, data) {
+    getJsonValue(key, data, binding) {
         if (binding.value && 'returnField' in binding.value) {
-            return binding.value.returnField.split('.').reduce((o,i)=>o[i], data);
+            return binding.value.returnField.split('.').reduce((o,i)=>o[i], data) || null;
         }
 
         if (key in data) {
@@ -143,7 +143,7 @@ const fetchDirective = function (options = {}) {
                         .then(response => response.json())
                         .then(function (data) {
                             if (updateModel) {
-                                vnode.context[updateModel] = helpers.getJsonValue(updateModel, data);
+                                vnode.context[updateModel] = helpers.getJsonValue(updateModel, data, binding);
                             }
 
                             if (binding.value && 'onComplete' in binding.value) {

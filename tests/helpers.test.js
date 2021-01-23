@@ -98,7 +98,49 @@ describe('helpers', () => {
     })
 
     it('tests json return value', () => {
-        // 
-        // helpers.getJsonValue(binding, key, data)
+        let data = {},
+            binding = { value: {} },
+            key = '',
+            result = '';
+
+        // key doesn't exist check
+        data = {};
+        result = VueFetch.helpers.getJsonValue('message', data, binding)
+        expect(result).toBeNull();
+
+        // key exists, default
+        data = {
+            message: 'hello world'
+        };
+        result = VueFetch.helpers.getJsonValue('message', data, binding)
+        expect(result).toBe('hello world');
+
+        // use dot notation
+        data = {
+            message: {
+                label: 'hello world'
+            }
+        };
+        binding = {
+            value: {
+                'returnField': 'message.label'
+            }
+        }
+        result = VueFetch.helpers.getJsonValue('', data, binding)
+        expect(result).toBe('hello world');
+
+        // test error on dot notation
+        data = {
+            message: {
+                label: 'error'
+            }
+        };
+        binding = {
+            value: {
+                'returnField': 'message.foo'
+            }
+        }
+        result = VueFetch.helpers.getJsonValue('', data, binding)
+        expect(result).toBeNull();
     })
 });
