@@ -92,7 +92,7 @@ Form example:
 
 Here are some codepen examples where you can see how this all works:
 
-- Simple examples
+- [Simple example](https://jsfiddle.net/shaynekasai/3vndyk4L/)
 - Form examples
 - More complex example
 
