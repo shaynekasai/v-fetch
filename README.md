@@ -94,7 +94,6 @@ Here are some codepen examples where you can see how this all works:
 - Form examples
 - More complex example
 
-```
 ### Callbacks
 
 ```onStart```
