@@ -202,4 +202,17 @@ describe('helpers', () => {
         });
         expect(result).toBe('foo'); 
     })
+
+    it('tests getFetchOpts()', () => {
+        let result = '';
+
+        result = VueFetch.helpers.getFetchOpts('put', {});
+        expect(result).toMatchObject({ method: 'put', body: {} });
+
+        result = VueFetch.helpers.getFetchOpts('put', null);
+        expect(result).toMatchObject({ method: 'put', body: null });
+
+        result = VueFetch.helpers.getFetchOpts('put', { 'foo': 'bar' } );
+        expect(result).toMatchObject({ method: 'put', body: { 'foo': 'bar' } });
+    })
 });
