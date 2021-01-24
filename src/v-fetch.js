@@ -163,11 +163,16 @@ const fetchDirective = function (options = {}) {
     }
 }
 
-const plugin = {
+const VueFetch = {
     install(Vue, options = {}) {
         Vue.directive('fetch', fetchDirective(options))
     },
     directive: fetchDirective(),
     helpers
 };
-export default plugin
+export default VueFetch
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueFetch);
+    window.VueFetch = VueFetch;
+}
