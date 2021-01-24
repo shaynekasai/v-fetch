@@ -131,15 +131,15 @@ const fetchDirective = function (options = {}) {
                     method,
                     eventType,
                     body
-                };
-
-                if (binding.value && 'onStart' in binding.value) {
-                    vnode.context[binding.value.onStart]();
-                }
-
-                vnode.context.$emit('v-fetch:start', opts)
+                };                
 
                 el.addEventListener(eventType, (e) => {
+                    
+                    if (binding.value && 'onStart' in binding.value) {
+                        vnode.context[binding.value.onStart]();
+                    }
+                    vnode.context.$emit('v-fetch:start', opts)
+
                     fetch(url, helpers.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
