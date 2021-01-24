@@ -111,8 +111,11 @@ Here are some codepen examples where you can see how this all works:
 ```v-fetch:complete```
 
 ### Release notes
-#### 1.0.0
-- Initial release, technology implmenetation and preview
+
+#### 1.1.0
+- Official working release
+- Added more options to update and set model values
+- More testing coverage
 
 #### 1.0.4
 - API change: use `sendModel` to send a specific model to the end-point
@@ -120,9 +123,9 @@ Here are some codepen examples where you can see how this all works:
 - API change: added a new `sendAs` parameter. Set to `json` to send JSON payload. `form` to send traditional form data.
 - Tests: starting to add more tests for helpers  
 
-#### 1.1.0
-- Added more options to update and set model values
-- Improved examples
+#### 1.0.0
+- Initial release, technology implmenetation and preview
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
