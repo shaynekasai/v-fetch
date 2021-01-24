@@ -50,6 +50,7 @@ Simple GET example:
 Simple GET example that updates a model from the AJAX return call:
 
 ```html
+<span>{{ message }}</span>
 <a href="/api/endpoint" v-fetch="{updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
 
@@ -58,6 +59,7 @@ Simple GET example that updates a model from the AJAX return call:
 Simple POST example that updates a model from the AJAX return call:
 
 ```html
+<span>{{ message }}</span>
 <a href="/api/endpoint" v-fetch:post="{sendModel: 'formModel', updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
 
