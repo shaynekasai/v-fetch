@@ -22,7 +22,7 @@ const helpers = {
         }  
     },
     getHttpMethod(el, binding) {
-        if (~['get', 'post', 'put', 'patch', 'delete'].indexOf(binding.arg)) {
+        if ('arg' in binding && ~['get', 'post', 'put', 'patch', 'delete'].indexOf(binding.arg)) {
             return binding.arg;
         }
 
@@ -33,20 +33,23 @@ const helpers = {
         if (el.getAttribute('method')) {
             return el.getAttribute('method');
         }
+
+        return 'get';
     },
     getUpdateModel(binding) {
         if (binding.value && 'updateModel' in binding.value) {
             return binding.value.updateModel;
         }
 
-        return;
+        return null;
     },
     getSendModel(binding) {
         if (binding.value && 'sendModel' in binding.value) {
+            
             return binding.value.sendModel;
         }
 
-        return;
+        return null;
     },
     getBody(sendModelData, binding) {
         if (!sendModelData) {
@@ -78,6 +81,26 @@ const helpers = {
         }
         
         return obj;
+    },
+
+    getFetchOpts(method, body) {
+        if (~['get', 'head'].indexOf(method)) {
+            return { method };
+        }
+
+        return { method, body }
+    },
+
+    getJsonValue(key, data, binding) {
+        if (binding.value && 'returnField' in binding.value) {
+            return binding.value.returnField.split('.').reduce((o,i)=>o[i], data) || null;
+        }
+
+        if (key in data) {
+            return data[key];
+        }
+
+        return null;
     }
 };
 
@@ -116,15 +139,12 @@ const fetchDirective = function (options = {}) {
 
                 vnode.context.$emit('v-fetch:start', opts)
 
-                el.addEventListener(eventType, function (e) {
-                    fetch(url, {
-                        method,
-                        body
-                    })
+                el.addEventListener(eventType, (e) => {
+                    fetch(url, helpers.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
                             if (updateModel) {
-                                vnode.context[updateModel] = data;
+                                vnode.context[updateModel] = helpers.getJsonValue(updateModel, data, binding);
                             }
 
                             if (binding.value && 'onComplete' in binding.value) {
@@ -144,11 +164,16 @@ const fetchDirective = function (options = {}) {
     }
 }
 
-const plugin = {
+const VueFetch = {
     install(Vue, options = {}) {
         Vue.directive('fetch', fetchDirective(options))
     },
     directive: fetchDirective(),
     helpers
 };
-export default plugin
+export default VueFetch
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueFetch);
+    window.VueFetch = VueFetch;
+}

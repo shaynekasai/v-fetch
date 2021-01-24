@@ -6,13 +6,13 @@
 <br />
 <p align="center">
   <h1 align="center">
-    v-fetch (technology preview)
+    v-fetch
     <br>
     <a href="https://travis-ci.org/shaynekasai/v-fetch" target="_blank"><img src="https://travis-ci.org/shaynekasai/v-fetch.svg?branch=main"></a>
   </h1>
 
   <p align="center">
-    v-fetch is a Vue 2 directive to add AJAX requests to your Vue application.
+    v-fetch is a Vue directive to add AJAX to your app without the boilerplate
   </p> 
 </p>
 
@@ -29,12 +29,6 @@ v-fetch is a directive that adds AJAX functionality to your Vue 2 application so
 
 ```
 npm install @shaynekasai/v-fetch --save
-```
-
-or you can use unpkg
-
-```html
-<script src="https://unpkg.com/@shaynekasai/v-fetch@1.0.2/dist/v-fetch.js"></script>
 ```
 
 ## Usage
@@ -56,12 +50,16 @@ Simple GET example:
 Simple GET example that updates a model from the AJAX return call:
 
 ```html
+<span>{{ message }}</span>
 <a href="/api/endpoint" v-fetch="{updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
+
+> **Important!** when using *updateModel*, make sure your end-point returns data using the same name. If you want to access a nested value in the json that is returned from your end-point, see the *returnField* option below
 
 Simple POST example that updates a model from the AJAX return call:
 
 ```html
+<span>{{ message }}</span>
 <a href="/api/endpoint" v-fetch:post="{sendModel: 'formModel', updateModel: 'message'}" v-on:click.prevent>click</a>
 ```
 
@@ -83,26 +81,21 @@ Form example:
 
 - `updateModel: '<string>'` - the Vue model property to update 
 - `sendModel: '<string>'` - the Vue model to send over as a form, json, or query args
+- `returnField: '<string>'` - gets the value from your json end-point using dot notation (arrays/more complex notation not supported yet)
 - `eventType: '<string>'` - the event type to use
 - `extraParams: <object>` - these get merged into `fetch`'s extra options.
 - `onStart: '<string>'` - calls your method just before the ajax call
 - `onComplete: '<string>'` - calls your method after ajax call is completed
 - `onError: '<strong>` - calls your method if there's an error
 
-Example: 
-```html
-v-fetch:get="{
-  updateModel: 'yourDataModel',
-  eventType: 'click',
-  extraParams: {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer'
-  }
-}";
-```
+### Examples
+
+Here are some codepen examples where you can see how this all works:
+
+- Simple examples
+- Form examples
+- More complex example
+
 ### Callbacks
 
 ```onStart```
@@ -118,14 +111,21 @@ v-fetch:get="{
 ```v-fetch:complete```
 
 ### Release notes
-#### 1.0.0
-- Initial release, technology implmenetation and preview
+
+#### 1.1.0
+- Official working release
+- Added more options to update and set model values
+- More testing coverage
 
 #### 1.0.4
 - API change: use `sendModel` to send a specific model to the end-point
 - API change: renamed `model` to `updateModel`
 - API change: added a new `sendAs` parameter. Set to `json` to send JSON payload. `form` to send traditional form data.
 - Tests: starting to add more tests for helpers  
+
+#### 1.0.0
+- Initial release, technology implmenetation and preview
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
