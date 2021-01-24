@@ -119,6 +119,10 @@ Here are some codepen examples where you can see how this all works:
 - API change: added a new `sendAs` parameter. Set to `json` to send JSON payload. `form` to send traditional form data.
 - Tests: starting to add more tests for helpers  
 
+#### 1.1.0
+- Added more options to update and set model values
+- Improved examples
+
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/shaynekasai/repo.svg?style=for-the-badge

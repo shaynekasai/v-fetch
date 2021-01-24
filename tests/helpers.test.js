@@ -5,7 +5,7 @@ import VueFetch from '../src/v-fetch.js'
 
 
 describe('helpers', () => {
-    it('tests form data helper', async () => {
+    it('tests getBody()', async () => {
         let result = '';
         
         result = VueFetch.helpers.getBody({ 'foo': 'bar' }, { 'value': {} });
@@ -21,7 +21,7 @@ describe('helpers', () => {
         expect(result.get('foo')).toBe('bar');
     })
 
-    it('tests event type', () => {
+    it('tests getEventType()', () => {
         let result = '';
         let el = document.createElement('form');
         let binding = {
@@ -55,7 +55,7 @@ describe('helpers', () => {
 
     })
 
-    it('tests get url', () => {
+    it('tests getUrl()', () => {
         let result = '';
         let el = document.createElement('form');
 
@@ -97,7 +97,7 @@ describe('helpers', () => {
         expect(result).toBe('/baz');
     })
 
-    it('tests json return value', () => {
+    it('tests getJsonValue()', () => {
         let data = {},
             binding = { value: {} },
             key = '',
@@ -142,5 +142,30 @@ describe('helpers', () => {
         }
         result = VueFetch.helpers.getJsonValue('', data, binding)
         expect(result).toBeNull();
+    })
+
+    it('test getHttpMethod()', () => {
+        let el = document.createElement('a'),
+            result = '';
+
+        // tests simple get
+        result = VueFetch.helpers.getHttpMethod(el, { arg: 'get' });
+        expect(result).toBe('get');
+
+        // tests link with arg
+        result = VueFetch.helpers.getHttpMethod(el, { arg: 'post' });
+        expect(result).toBe('post');
+
+        // tests form method
+        el = document.createElement('form');
+        el.setAttribute('method', 'delete');
+        result = VueFetch.helpers.getHttpMethod(el, {});
+        expect(result).toBe('delete');
+
+        // tests form override method
+        el = document.createElement('form');
+        el.setAttribute('method', 'delete');
+        result = VueFetch.helpers.getHttpMethod(el, { arg: 'put' });
+        expect(result).toBe('put');
     })
 });

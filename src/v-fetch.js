@@ -22,7 +22,7 @@ const helpers = {
         }  
     },
     getHttpMethod(el, binding) {
-        if (~['get', 'post', 'put', 'patch', 'delete'].indexOf(binding.arg)) {
+        if ('arg' in binding && ~['get', 'post', 'put', 'patch', 'delete'].indexOf(binding.arg)) {
             return binding.arg;
         }
 
@@ -138,7 +138,7 @@ const fetchDirective = function (options = {}) {
 
                 vnode.context.$emit('v-fetch:start', opts)
 
-                el.addEventListener(eventType, function (e) {
+                el.addEventListener(eventType, (e) => {
                     fetch(url, helpers.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
