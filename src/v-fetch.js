@@ -41,14 +41,15 @@ const helpers = {
             return binding.value.updateModel;
         }
 
-        return;
+        return null;
     },
     getSendModel(binding) {
         if (binding.value && 'sendModel' in binding.value) {
+            
             return binding.value.sendModel;
         }
 
-        return;
+        return null;
     },
     getBody(sendModelData, binding) {
         if (!sendModelData) {

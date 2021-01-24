@@ -168,4 +168,38 @@ describe('helpers', () => {
         result = VueFetch.helpers.getHttpMethod(el, { arg: 'put' });
         expect(result).toBe('put');
     })
+
+    it('tests getUpdateModel()', () => {
+        let result = '';
+
+        result = VueFetch.helpers.getUpdateModel({});
+        expect(result).toBeNull();
+
+        result = VueFetch.helpers.getUpdateModel({'value': {}});
+        expect(result).toBeNull();
+
+        result = VueFetch.helpers.getUpdateModel({
+            'value': {
+                'updateModel': 'foo'
+            }
+        });
+        expect(result).toBe('foo'); 
+    })
+
+    it('tests getSendModel()', () => {
+        let result = '';
+
+        result = VueFetch.helpers.getSendModel({});
+        expect(result).toBeNull();
+
+        result = VueFetch.helpers.getSendModel({'value': {}});
+        expect(result).toBeNull();
+
+        result = VueFetch.helpers.getSendModel({
+            'value': {
+                'sendModel': 'foo'
+            }
+        });
+        expect(result).toBe('foo'); 
+    })
 });
