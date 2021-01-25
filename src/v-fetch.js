@@ -55,13 +55,9 @@ const helpers = {
         if (!sendModelData) {
             return null;
         }
-
-        if (!binding.value || !binding.value.sendAs) {
-            return null;
-        }
-
-        // sends as json content, would need to be encoded on the other end
-        if (binding.value.sendAs == 'json') {
+        
+        // mainly catch default (eg. no sendAs parameter, or explicite json is passed in)
+        if (!binding.hasOwnProperty('value') || !binding.value.hasOwnProperty('sendAs') || binding.value.sendAs == 'json') {
             return JSON.stringify(sendModelData);
         }
 
@@ -70,6 +66,7 @@ const helpers = {
         for ( var key in sendModelData ) {
             formData.append(key, sendModelData[key]);
         }
+
         return formData;
     },
 
@@ -136,7 +133,7 @@ const fetchDirective = function (options = {}) {
                 el.addEventListener(eventType, (e) => {
                     
                     if (binding.value && 'onStart' in binding.value) {
-                        vnode.context[binding.value.onStart]();
+                        vnode.context[binding.value.onStart](opts);
                     }
                     vnode.context.$emit('v-fetch:start', opts)
 
@@ -148,12 +145,12 @@ const fetchDirective = function (options = {}) {
                             }
 
                             if (binding.value && 'onComplete' in binding.value) {
-                                vnode.context[binding.value.onComplete]();
+                                vnode.context[binding.value.onComplete](opts);
                             }
                             vnode.context.$emit('v-fetch:complete', opts)
                         }).catch((error) => {
                             if (binding.value && 'onError' in binding.value) {
-                                vnode.context[binding.value.onError]();
+                                vnode.context[binding.value.onError](opts);
                             }
                             vnode.context.$emit('v-fetch:error', opts)
                             throw error;
