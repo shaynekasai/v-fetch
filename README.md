@@ -94,7 +94,7 @@ Form POST example that sends `formModel` data as json and updates the `message` 
 Here are some codepen examples where you can see how this all works:
 
 - [Simple example](https://jsfiddle.net/shaynekasai/3vndyk4L/)
-- [Form example](https://jsfiddle.net/shaynekasai/n2t5864j/6/)
+- [Form example](https://jsfiddle.net/shaynekasai/n2t5864j/14/)
 - More complex example
 
 ### Callbacks
