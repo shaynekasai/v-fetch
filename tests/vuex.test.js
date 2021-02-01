@@ -4,55 +4,49 @@ import flushPromises from 'flush-promises'
 import Vuex from 'vuex'
 import VueFetch from '../src/v-fetch.js'
 
-
-
-const storeOpts = {
-    state: {
-        message: ''
-    },
-    mutations: {}
-}
-
-
-const localVue = createLocalVue()
-localVue.use(Vuex);
-localVue.use(VueFetch, {
-    'vuexStore': storeOpts
-});
-
-const store = new Vuex.Store(storeOpts)
-
 global.fetch = jest.fn(() =>
     Promise.resolve({
         json: () => Promise.resolve('fetch test'),
     })
 );
 
-const BaseComponent = {
-    store,
-    template: '',
-    computed: {
-        message () {
-          return this.$store.state.message
-        }
-    }
-}
+const localVue = createLocalVue();
 
+const storeConfig = {
+    state: {
+        message: ''
+    },
+    mutations: {}
+};
+
+localVue.use(Vuex);
+localVue.use(VueFetch, {
+    'vuexStoreConfig': storeConfig
+});
+
+const store = new Vuex.Store(storeConfig);
 
 describe('vuex', () => {
     it('tests vuex integration', async () => {
-        const CustomComponent = Object.create(BaseComponent);
-        CustomComponent.template = '<div><span>{{ message }}</span><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\'}" v-on:click.prevent></a></div>';
+        const CustomComponent = {
+            store,
+            template: '<div><span>{{ message }}</span><a href="http://localhost/url" v-fetch:get="{updateModel:\'message\'}" v-on:click.prevent></a></div>',
+            computed: {
+                message () {
+                  return this.$store.state.message
+                }
+            }
+        };
 
         const wrapper = mount(CustomComponent, {
             localVue,
         });
         
-        expect(wrapper.vm.message).toBe('')
+        expect(wrapper.vm.message).toBe('');
 
-        wrapper.find('a').trigger('click')
+        wrapper.find('a').trigger('click');
         await flushPromises();
 
-        expect(wrapper.vm.message).toBe('fetch test')
+        expect(wrapper.vm.message).toBe('fetch test');
     })
 })

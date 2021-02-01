@@ -12,7 +12,7 @@
   </h1>
 
   <p align="center">
-    v-fetch is a Vue directive to add AJAX to your app without the boilerplate
+    v-fetch is a Vue directive to add AJAX to your app without the extra boilerplate
   </p> 
 </p>
 
@@ -79,6 +79,12 @@ Form POST example that sends `formModel` data as json and updates the `message` 
 
 ### Options:
 
+Use `Vue.use(VueFetch, { <options> })` to set extra core functions for v-fetch.
+
+- `vuexStoreConfig: <object>` - if you're using Vuex, set this property to a store config object (see examples)
+
+### v-fetch properties:
+
 - `updateModel: '<string>'` - the Vue model property to update 
 - `sendModel: '<string>'` - the Vue model to send over as a form, json, or query args
 - `sendAs: 'json|form'` - send data as json data or as FormData
@@ -88,7 +94,6 @@ Form POST example that sends `formModel` data as json and updates the `message` 
 - `onStart: '<string>'` - calls your method just before the ajax call
 - `onComplete: '<string>'` - calls your method after ajax call is completed
 - `onError: '<string>` - calls your method if there's an error
-- `store: 'vuex'` - enable [VueX](https://vuex.vuejs.org/) support
 
 ### Examples
 
