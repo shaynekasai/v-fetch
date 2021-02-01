@@ -98,10 +98,38 @@ const helpers = {
         }
 
         return null;
+    },
+
+    fetch() {
+
     }
 };
 
+
+const VueFetchModule = {
+    mutations: { 
+        _vfetchUpdate({ commit, state }, opts) {
+            if ('updateModel' in opts) {
+                this.state[opts.updateModel] = opts.data;
+            }
+        }
+    },
+    actions: {
+
+    },
+}
+
 const fetchDirective = function (options = {}) {
+
+    if ('vuexStore' in options) {
+        if (!options.vuexStore.modules) {
+            options.vuexStore.modules = {};
+        }
+        options.vuexStore.modules = {
+            'vfetch': VueFetchModule
+        };
+    }
+
     return {
         bind(el, binding, vnode) {
             let updateModel = helpers.getUpdateModel(binding),
@@ -117,7 +145,7 @@ const fetchDirective = function (options = {}) {
             } else if (el.nodeName === 'FORM') {
                 body = helpers.getBody(helpers.formDataToObject(new FormData(el)), binding)
             }
-
+            
             handle()
 
             function handle() {
@@ -131,7 +159,7 @@ const fetchDirective = function (options = {}) {
                 };                
 
                 el.addEventListener(eventType, (e) => {
-                    
+                    // Trigger standard Vue
                     if (binding.value && 'onStart' in binding.value) {
                         vnode.context[binding.value.onStart](opts);
                     }
@@ -140,13 +168,24 @@ const fetchDirective = function (options = {}) {
                     fetch(url, helpers.getFetchOpts(method, body))
                         .then(response => response.json())
                         .then(function (data) {
-                            if (updateModel) {
+                            opts.data = data;
+
+                            // vuejs model update
+                            if (!vnode.context.$store && updateModel) {
                                 vnode.context[updateModel] = helpers.getJsonValue(updateModel, data, binding);
                             }
+                            
+                            // vuex update
+                            if ('$store' in vnode.context) {
+                                vnode.context.$store.commit('_vfetchUpdate', opts);
+                            }
 
+                            // callbacks
                             if (binding.value && 'onComplete' in binding.value) {
                                 vnode.context[binding.value.onComplete](opts);
                             }
+
+                            // event triggers
                             vnode.context.$emit('v-fetch:complete', opts)
                         }).catch((error) => {
                             if (binding.value && 'onError' in binding.value) {

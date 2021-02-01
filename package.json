@@ -44,5 +44,8 @@
       "^.+\\.js$": "babel-jest",
       ".*\\.(vue)$": "vue-jest"
     }
+  },
+  "dependencies": {
+    "vuex": "^3.6.2"
   }
 }
