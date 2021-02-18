@@ -6,13 +6,13 @@
 <br />
 <p align="center">
   <h1 align="center">
-    v-fetch
+    Vue Fetch
     <br>
     <a href="https://travis-ci.org/shaynekasai/v-fetch" target="_blank"><img src="https://travis-ci.org/shaynekasai/v-fetch.svg?branch=main"></a>
   </h1>
 
   <p align="center">
-    v-fetch is a Vue directive to add AJAX to your app without the boilerplate
+    Vue Fetch is a Vue directive that adds AJAX capabilities to your app without the extra boilerplate
   </p> 
 </p>
 
@@ -20,7 +20,9 @@
 
 ## Summary
 
-v-fetch is a directive that adds AJAX functionality to your Vue 2 application so that you don't have to write all of the boilerplate code to call a simple API request to update a model or submit data to an end-point. The goal of v-fetch is to reduce the amount of code in your components and provide a more intuitive interface to making HTTP requests.
+Vue Fetch is a directive that adds AJAX functionality to your Vue 2 application so that you don't have to write all of the boilerplate code to call a simple API request to update a model or submit data to an end-point. The goal of Vue Fetch is to move methods that you would normally write into a more intuitive format in your template. 
+
+It is light-weight, can easily be integrated, and can automagically update your component models, or your Vuex store. You can also hook into its events or callbacks to run your own code.
 
 **Note**: This is a work in progress, so the code and API is likely to change quickly.
 
@@ -79,6 +81,12 @@ Form POST example that sends `formModel` data as json and updates the `message` 
 
 ### Options:
 
+Use `Vue.use(VueFetch, { <options> })` to set extra core functions for v-fetch.
+
+- `vuexStoreConfig: <object>` - if you're using Vuex, set this property to a store config object (see examples)
+
+### v-fetch properties:
+
 - `updateModel: '<string>'` - the Vue model property to update 
 - `sendModel: '<string>'` - the Vue model to send over as a form, json, or query args
 - `sendAs: 'json|form'` - send data as json data or as FormData
@@ -87,7 +95,7 @@ Form POST example that sends `formModel` data as json and updates the `message` 
 - `extraParams: <object>` - these get merged into `fetch`'s extra options.
 - `onStart: '<string>'` - calls your method just before the ajax call
 - `onComplete: '<string>'` - calls your method after ajax call is completed
-- `onError: '<strong>` - calls your method if there's an error
+- `onError: '<string>` - calls your method if there's an error
 
 ### Examples
 
@@ -96,6 +104,7 @@ Here are some codepen examples where you can see how this all works:
 - [Simple example](https://jsfiddle.net/shaynekasai/3vndyk4L/)
 - [Form example](https://jsfiddle.net/shaynekasai/n2t5864j/14/)
 - More complex example
+- [VueX example](https://jsfiddle.net/shaynekasai/95yubkap/7/)
 
 ### Callbacks
 
