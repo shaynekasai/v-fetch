@@ -32,6 +32,7 @@ const fetchDirective = function (options = {}) {
 
             function handle() {
                 let opts = {
+                    binding,
                     updateModel,
                     sendModel,
                     url,

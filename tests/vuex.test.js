@@ -6,7 +6,7 @@ import VueFetch from '../src/v-fetch.js'
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
-        json: () => Promise.resolve('fetch test'),
+        json: () => Promise.resolve({ message: 'fetch test' }),
     })
 );
 
@@ -48,5 +48,28 @@ describe('vuex', () => {
         await flushPromises();
 
         expect(wrapper.vm.message).toBe('fetch test');
+    })
+
+    it('tests vuex fail', async () => {
+        const CustomComponent = {
+            store,
+            template: '<div><span>{{ thing }}</span><a href="http://localhost/url" v-fetch:get="{updateModel:\'aaa\'}" v-on:click.prevent></a></div>',
+            computed: {
+                thing () {
+                  return this.$store.state.thing ? this.$store.state.thing : ''
+                }
+            }
+        };
+
+        const wrapper = mount(CustomComponent, {
+            localVue,
+        });
+        
+        expect(wrapper.vm.thing).toBe('');
+
+        wrapper.find('a').trigger('click');
+        await flushPromises();
+
+        expect(wrapper.vm.thing).toBe('');
     })
 })

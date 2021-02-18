@@ -1,6 +1,6 @@
 {
   "name": "@shaynekasai/v-fetch",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A Vue directive to add AJAX to your app without the boilerplate",
   "keywords": [
     "ajax",
